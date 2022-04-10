@@ -15,17 +15,17 @@ var bodies = [];
 var earth = [];
 earth[0] = (4.4745 * (10**12)); //x pos
 earth[1] = 0; //y pos
-earth[2] = "planet"; //class of body: used to find out what colors to use
+earth[2] = "star"; //class of body: used to find out what colors to use
 earth[3] = 0;
 earth[4] = 5700; //initial y velocity
-earth[5] = 1.024 * (10**(26)) //neptune mass in kg
+earth[5] = 1.024 * (10**(29)) //neptune mass in kg
 
 var sun = [];
 sun[0] = 0;
 sun[1] = 0;
 sun[2] = "star";
 sun[3] = 0;
-sun[4] = 0;
+sun[4] = -300;
 sun[5] = 1.9891 * (10**(30)) //mass of sun in kg
 
 //initial accelerations
@@ -35,26 +35,51 @@ sun[7] = 0
 earth[6] = xForce(sun, earth)
 earth[7] = 0
 
+var alec = [];
+alec[0] = -1.496 * (10**(11));
+alec[1] = 0;
+alec[2] = "planet";
+alec[3] = 0;
+alec[4] = -30000;
+alec[5] = 7.348 * (10**(22)) //mass of sun in kg
+alec[6] = xForce(sun, alec) + xForce(earth, alec)
+alec[7] = 0
+
 bodies.push(earth);
 bodies.push(sun);
+bodies.push(alec);
 
-console.table(bodies);
-console.log(bodies[1][2]);
+//console.table(bodies);
+//console.log(bodies[1][2]);
 
 
 var e = document.getElementById("myCanvas");
 var etx = e.getContext("2d");
 
-etx.strokeStyle = "#00FF00";
+etx.strokeStyle = "#FFA500";
 
 etx.beginPath();
-etx.arc(setdistScale(earth[0] , "meters"),setdistScale(earth[1] , "meters"),20,0,2*Math.PI);
+etx.arc(setdistScale(earth[0] , "meters"),setdistScale(earth[1] , "meters"),13,0,2*Math.PI);
 
 etx.lineWidth = '5';
-etx.fillStyle = "#0000FF";
+etx.fillStyle = "#FFFF00";
 etx.fill();
 
 etx.stroke();
+
+var a = document.getElementById("myCanvas");
+var atx = a.getContext("2d");
+
+atx.strokeStyle = "#00FF00";
+
+atx.beginPath();
+atx.arc(setdistScale(alec[0] , "meters"),setdistScale(alec[1] , "meters"),13,0,2*Math.PI);
+
+atx.lineWidth = '5';
+atx.fillStyle = "#0000FF";
+atx.fill();
+
+atx.stroke();
 
 var s = document.getElementById("myCanvas");
 var stx = s.getContext("2d");
@@ -62,7 +87,7 @@ var stx = s.getContext("2d");
 stx.strokeStyle = "#FFA500";
 
 stx.beginPath();
-stx.arc(setdistScale(sun[0] , "meters"),setdistScale(sun[1] , "meters"),20,0,2*Math.PI);
+stx.arc(setdistScale(sun[0] , "meters"),setdistScale(sun[1] , "meters"),13,0,2*Math.PI);
 
 stx.lineWidth = '5';
 stx.fillStyle = "#FFFF00";
@@ -75,6 +100,11 @@ function setdistScale(number, unit) {
   if (unit == "meters"){
     return 1000*(number + plutodist) / ((2 * (plutodist))) //diameter of solar system to pluto
   }
+}
+
+function changeDist(){
+  plutodist = 1 * document.getElementById("Distance").value;
+  console.log( document.getElementById("Distance").value );
 }
 
 //find the force on b from a
@@ -136,7 +166,6 @@ function changeTime(){
   }
 }
 
-
 function movePlanets(){
 
   if (play) {
@@ -170,7 +199,7 @@ function movePlanets(){
     ctx.clearRect(0, 0, c.width, c.height);
     ctx.beginPath();
 
-    console.log(bodies[1][0], bodies[1][1]);
+    //console.log(bodies[1][0], bodies[1][1]);
 
     for (let k = 0; k < bodies.length; k++){
       let cnvs = document.getElementById("myCanvas");
@@ -181,7 +210,7 @@ function movePlanets(){
 
         body.strokeStyle = "#3d3d3d";
         body.beginPath();
-        body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),20,0,2*Math.PI);
+        body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
 
         body.lineWidth = '5';
         body.fillStyle = "#949494";
@@ -194,7 +223,7 @@ function movePlanets(){
 
         body.strokeStyle = "#00FF00";
         body.beginPath();
-        body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),20,0,2*Math.PI);
+        body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
 
         body.lineWidth = '5';
         body.fillStyle = "#0000FF";
@@ -207,7 +236,7 @@ function movePlanets(){
 
         body.strokeStyle = "#FFA500";
         body.beginPath();
-        body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),20,0,2*Math.PI);
+        body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
 
         body.lineWidth = '5';
         body.fillStyle = "#FFFF00";
@@ -219,9 +248,9 @@ function movePlanets(){
         default:
         body.strokeStyle = "#FEFEBE";
         body.beginPath();
-        body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),20,0,2*Math.PI);
+        body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
 
-        body.lineWidth = '5';
+        body.lineWidth = '1';
         body.fillStyle = "#000000";
         body.fill();
 
@@ -230,38 +259,6 @@ function movePlanets(){
     }
   }
 }
-/*
-    var s = document.getElementById("myCanvas");
-    var stx = s.getContext("2d");
-
-    stx.strokeStyle = "#FFA500";
-
-    stx.beginPath();
-    stx.arc(setdistScale(sun[0] , "meters"),setdistScale(sun[1] , "meters"),20,0,2*Math.PI);
-
-    stx.lineWidth = '5';
-    stx.fillStyle = "#FFFF00";
-    stx.fill();
-
-    stx.stroke();
-
-    //updating neptune
-    var e = document.getElementById("myCanvas");
-    var etx = e.getContext("2d");
-
-    etx.strokeStyle = "#00FF00";
-
-    etx.beginPath();
-    etx.arc(setdistScale(earth[0] , "meters"),setdistScale(earth[1] , "meters"),20,0,2*Math.PI);
-
-    etx.lineWidth = '5';
-    etx.fillStyle = "#0000FF";
-    etx.fill();
-
-    etx.stroke();
-  }
-*/
-
 
 // button stuff
 //jQuery.noConflict();
