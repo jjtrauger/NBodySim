@@ -1,0 +1,58 @@
+<!-- OrbitalDemo is Sun Earth Moon System -->
+<DOCTYPE HTML>
+  <html>
+  <head>
+    <title>Joseph Trauger's Orbital Mechanics Demo</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css_styles/final.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+  </head>
+    <!-- all this is just to copy Professor's format -->
+    <body onload="setTimer()">
+      <div class="container">
+        <div class="grid">
+
+          <div class="row">
+            <div class="col-md-12">
+              <canvas id="myCanvas" width="1000" height="1000" style="background:#000000; border:5px solid #d3d3d3;">
+              </canvas>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col-md-4">
+              <form>
+                <label for="times">Time Scale (in real life seconds):</label>
+                <select name="time" id="time" onchange="changeTime()">
+                  <option value="day" name = "day" id = "1">Day</option>
+                  <option value="week" name = "week" id = "2">Week</option>
+                  <option value="month" name = "month" id = "3">Month</option>
+                  <option value="year" name = "year" id = "4">Year</option>
+                  <option value="decade" name = "decade" id = "5">Decade</option>
+                  <option value="century" name = "century" id = "6">Century</option>
+                </select>
+                <br><br>
+              </form>
+            </div>
+            <div class="col-md-4">
+              <button class='specialbutton' id = "plorpa"></button>
+            </div>
+          </div>
+
+
+
+<script src = "javascript/CFPDemo.js"></script>
+
+          </div>
+        </body>
