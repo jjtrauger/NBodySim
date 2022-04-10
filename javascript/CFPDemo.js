@@ -164,16 +164,73 @@ function movePlanets(){
       bodies[i][1] += (bodies[i][4] * dt) + ((ay * dt**2) / 2);
     }
 
-    for (let k = 0; k < bodies.length; k++){
-      
-    }
-
     // clear canvas
     var c = document.getElementById("myCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(0, 0, c.width, c.height);
     ctx.beginPath();
 
+    console.log(bodies[1][0], bodies[1][1]);
+
+    for (let k = 0; k < bodies.length; k++){
+      let cnvs = document.getElementById("myCanvas");
+      var body = cnvs.getContext("2d");
+
+      switch(bodies[k][2]){
+        case "moon":
+
+        body.strokeStyle = "#3d3d3d";
+        body.beginPath();
+        body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),20,0,2*Math.PI);
+
+        body.lineWidth = '5';
+        body.fillStyle = "#949494";
+        body.fill();
+
+        body.stroke();
+
+        break;
+        case "planet":
+
+        body.strokeStyle = "#00FF00";
+        body.beginPath();
+        body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),20,0,2*Math.PI);
+
+        body.lineWidth = '5';
+        body.fillStyle = "#0000FF";
+        body.fill();
+
+        body.stroke();
+
+        break;
+        case "star":
+
+        body.strokeStyle = "#FFA500";
+        body.beginPath();
+        body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),20,0,2*Math.PI);
+
+        body.lineWidth = '5';
+        body.fillStyle = "#FFFF00";
+        body.fill();
+
+        body.stroke();
+
+        break;
+        default:
+        body.strokeStyle = "#FEFEBE";
+        body.beginPath();
+        body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),20,0,2*Math.PI);
+
+        body.lineWidth = '5';
+        body.fillStyle = "#000000";
+        body.fill();
+
+        body.stroke();
+      }
+    }
+  }
+}
+/*
     var s = document.getElementById("myCanvas");
     var stx = s.getContext("2d");
 
@@ -203,9 +260,7 @@ function movePlanets(){
 
     etx.stroke();
   }
-
-}
-
+*/
 
 
 // button stuff
