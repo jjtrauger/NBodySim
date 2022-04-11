@@ -102,9 +102,168 @@ function setdistScale(number, unit) {
   }
 }
 
+//rescale actual size of canvas
 function changeDist(){
   plutodist = 1 * document.getElementById("Distance").value;
   console.log( document.getElementById("Distance").value );
+
+  clearCanvas();
+
+  for (let k = 0; k < bodies.length; k++){
+    let cnvs = document.getElementById("myCanvas");
+    var body = cnvs.getContext("2d");
+
+    switch(bodies[k][2]){
+      case "moon":
+
+      body.strokeStyle = "#3d3d3d";
+      body.beginPath();
+      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
+
+      body.lineWidth = '5';
+      body.fillStyle = "#949494";
+      body.fill();
+
+      body.stroke();
+
+      break;
+      case "planet":
+
+      body.strokeStyle = "#00FF00";
+      body.beginPath();
+      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
+
+      body.lineWidth = '5';
+      body.fillStyle = "#0000FF";
+      body.fill();
+
+      body.stroke();
+
+      break;
+      case "star":
+
+      body.strokeStyle = "#FFA500";
+      body.beginPath();
+      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
+
+      body.lineWidth = '5';
+      body.fillStyle = "#FFFF00";
+      body.fill();
+
+      body.stroke();
+
+      break;
+      default:
+      body.strokeStyle = "#FEFEBE";
+      body.beginPath();
+      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
+
+      body.lineWidth = '1';
+      body.fillStyle = "#000000";
+      body.fill();
+
+      body.stroke();
+    }
+  }
+}
+
+//empty canvas of all bodies
+function clearCanvas(){
+  var c = document.getElementById("myCanvas");
+  var ctx = c.getContext("2d");
+  ctx.clearRect(0, 0, c.width, c.height);
+  ctx.beginPath();
+}
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("addBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+//in the modal, allow user to add a body with specified parameter
+var addbtn = document.getElementById("subAddBody");
+
+addbtn.onclick = function() {
+  bodies.push( [1 * document.getElementById("xPos").value, 1 * document.getElementById("yPos").value,  document.getElementById("bodyType").value, 1 * document.getElementById("mass").value, 1 * document.getElementById("xVel").value, 1 * document.getElementById("yVel").value]);
+
+  console.table(bodies);
+  console.log(bodies.length - 1);
+
+  let cnvs = document.getElementById("myCanvas");
+  var body = cnvs.getContext("2d");
+
+  switch(bodies[bodies.length - 1][2]){
+    case "moon":
+
+    body.strokeStyle = "#3d3d3d";
+    body.beginPath();
+    body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),13,0,2*Math.PI);
+
+    body.lineWidth = '5';
+    body.fillStyle = "#949494";
+    body.fill();
+
+    body.stroke();
+
+    break;
+    case "planet":
+
+    body.strokeStyle = "#00FF00";
+    body.beginPath();
+    body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),13,0,2*Math.PI);
+
+    body.lineWidth = '5';
+    body.fillStyle = "#0000FF";
+    body.fill();
+
+    body.stroke();
+
+    break;
+    case "star":
+
+    body.strokeStyle = "#FFA500";
+    body.beginPath();
+    body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),13,0,2*Math.PI);
+
+    body.lineWidth = '5';
+    body.fillStyle = "#FFFF00";
+    body.fill();
+
+    body.stroke();
+
+    break;
+    default:
+    body.strokeStyle = "#FEFEBE";
+    body.beginPath();
+    body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),13,0,2*Math.PI);
+
+    body.lineWidth = '1';
+    body.fillStyle = "#000000";
+    body.fill();
+
+    body.stroke();
+  }
 }
 
 //find the force on b from a
@@ -169,7 +328,6 @@ function changeTime(){
 function movePlanets(){
 
   if (play) {
-    //console.log(earth[1])
 
     for (let i = 0; i < bodies.length; i++) {
       var ax = 0;
@@ -194,10 +352,7 @@ function movePlanets(){
     }
 
     // clear canvas
-    var c = document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
-    ctx.clearRect(0, 0, c.width, c.height);
-    ctx.beginPath();
+    clearCanvas();
 
     //console.log(bodies[1][0], bodies[1][1]);
 

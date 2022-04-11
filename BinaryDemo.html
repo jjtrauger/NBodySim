@@ -33,7 +33,7 @@
           <div class="row">
             <div class="col-md-4">
               <form>
-                <label for="times">Time Scale (in real life seconds):</label>
+                <label for="time">Time Scale (in real life seconds):</label>
                 <select name="time" id="time" onchange="changeTime()">
                   <option value="day" name = "day" id = "1">Day</option>
                   <option value="week" name = "week" id = "2">Week</option>
@@ -51,7 +51,47 @@
             <div class="col-md-4">
               <button class='specialbutton' id = "plorpa"></button>
             </div>
+
+            <div class = "col-md-4">
+              <button id="addBtn">Add Body</button>
+            </div>
           </div>
+
+        </div>
+
+        <div id="myModal" class="modal">
+
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <label for="xPos">X Position (m): </label>
+            <input type="number" id="xPos" name="xPos"><br><br>
+
+            <label for="yPos">Y Position (m): </label>
+            <input type="number" id="yPos" name="yPos"><br><br>
+
+            <label for="bodyType">Celestial Body: </label>
+            <select name="bodyType" id="bodyType">
+              <option value="moon" name = "moon" id = "1">Moon</option>
+              <option value="planet" name = "planet" id = "2">Planet</option>
+              <option value="star" name = "star" id = "3">Star</option>
+              <option value="blackhole" name = "blackhole" id = "4">Black Hole</option>
+            </select>
+            <br><br>
+
+            <label for="mass">Mass (kg): </label>
+            <input type="number" id="mass" name="mass"><br><br>
+
+            <label for="xVel">X Velocity (m/s): </label>
+            <input type="number" id="xVel" name="xVel"><br><br>
+
+            <label for="yVel">Y Velocity (m/s): </label>
+            <input type="number" id="yVel" name="yVel"><br><br>
+
+            <button id="subAddBody">Add Body to Simulation</button>
+          </div>
+        </div>
 
 
 
