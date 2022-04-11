@@ -201,6 +201,20 @@ window.onclick = function(event) {
   }
 }
 
+var clrBtn = document.getElementById("clrBtn");
+
+clrBtn.onclick = function(){
+  bodies.pop();
+  populateCnvs();
+}
+
+var clrAllBtn = document.getElementById("clrAllBtn");
+
+clrAllBtn.onclick = function(){
+  bodies = [];
+  populateCnvs();
+}
+
 //in the modal, allow user to add a body with specified parameter
 var addbtn = document.getElementById("subAddBody");
 
@@ -325,10 +339,95 @@ function changeTime(){
   }
 }
 
+function updateParams(){
+  for (let i = 0; i < bodies.length; i++) {
+    var ax = 0;
+    var ay = 0;
+    for (let j = 0; j < bodies.length; j++){
+      if (i != j){
+        ax += xForce(bodies[j] , bodies[i])
+        ay += yForce(bodies[j] , bodies[i])
+      }
+    }
+    //update accelerations
+    bodies[i][6] = ax;
+    bodies[i][7] = ay;
+
+    //update velocities
+    bodies[i][3] += ax * dt;
+    bodies[i][4] += ay * dt;
+
+    //update positions
+    bodies[i][0] += (bodies[i][3] * dt) + ((ax * dt**2) / 2);
+    bodies[i][1] += (bodies[i][4] * dt) + ((ay * dt**2) / 2);
+  }
+}
+
+function populateCnvs(){
+  for (let k = 0; k < bodies.length; k++){
+    let cnvs = document.getElementById("myCanvas");
+    var body = cnvs.getContext("2d");
+
+    switch(bodies[k][2]){
+      case "moon":
+
+      body.strokeStyle = "#3d3d3d";
+      body.beginPath();
+      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
+
+      body.lineWidth = '5';
+      body.fillStyle = "#949494";
+      body.fill();
+
+      body.stroke();
+
+      break;
+      case "planet":
+
+      body.strokeStyle = "#00FF00";
+      body.beginPath();
+      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
+
+      body.lineWidth = '5';
+      body.fillStyle = "#0000FF";
+      body.fill();
+
+      body.stroke();
+
+      break;
+      case "star":
+
+      body.strokeStyle = "#FFA500";
+      body.beginPath();
+      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
+
+      body.lineWidth = '5';
+      body.fillStyle = "#FFFF00";
+      body.fill();
+
+      body.stroke();
+
+      break;
+      default:
+      body.strokeStyle = "#FEFEBE";
+      body.beginPath();
+      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
+
+      body.lineWidth = '1';
+      body.fillStyle = "#000000";
+      body.fill();
+
+      body.stroke();
+    }
+  }
+}
+
 function movePlanets(){
 
   if (play) {
 
+    updateParams();
+/*
     for (let i = 0; i < bodies.length; i++) {
       var ax = 0;
       var ay = 0;
@@ -349,13 +448,15 @@ function movePlanets(){
       //update positions
       bodies[i][0] += (bodies[i][3] * dt) + ((ax * dt**2) / 2);
       bodies[i][1] += (bodies[i][4] * dt) + ((ay * dt**2) / 2);
-    }
+    }*/
 
     // clear canvas
     clearCanvas();
 
     //console.log(bodies[1][0], bodies[1][1]);
 
+    populateCnvs();
+/*
     for (let k = 0; k < bodies.length; k++){
       let cnvs = document.getElementById("myCanvas");
       var body = cnvs.getContext("2d");
@@ -411,7 +512,7 @@ function movePlanets(){
 
         body.stroke();
       }
-    }
+    }*/
   }
 }
 
