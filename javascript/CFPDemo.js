@@ -212,7 +212,11 @@ clrBtn.onclick = function(){
 var clrAllBtn = document.getElementById("clrAllBtn");
 
 clrAllBtn.onclick = function(){
+
   bodies = [];
+
+  console.table(bodies);
+
   clearCanvas();
 }
 
@@ -220,7 +224,7 @@ clrAllBtn.onclick = function(){
 var addbtn = document.getElementById("subAddBody");
 
 addbtn.onclick = function() {
-  bodies.push( [1 * document.getElementById("xPos").value, 1 * document.getElementById("yPos").value,  document.getElementById("bodyType").value, 1 * document.getElementById("mass").value, 1 * document.getElementById("xVel").value, 1 * document.getElementById("yVel").value]);
+  bodies.push( [1 * document.getElementById("xPos").value, 1 * document.getElementById("yPos").value,  document.getElementById("bodyType").value, 1 * document.getElementById("xVel").value, 1 * document.getElementById("yVel").value, 1 * document.getElementById("mass").value, 0, 0]);
 
   console.table(bodies);
   console.log(bodies.length - 1);
@@ -341,26 +345,41 @@ function changeTime(){
 }
 
 function updateParams(){
-  for (let i = 0; i < bodies.length; i++) {
-    var ax = 0;
-    var ay = 0;
-    for (let j = 0; j < bodies.length; j++){
-      if (i != j){
-        ax += xForce(bodies[j] , bodies[i])
-        ay += yForce(bodies[j] , bodies[i])
+
+  if (bodies.length > 1){
+
+
+    for (let i = 0; i < bodies.length; i++) {
+      var ax = 0;
+      var ay = 0;
+      for (let j = 0; j < bodies.length; j++){
+        if (i != j){
+          ax += xForce(bodies[j] , bodies[i])
+          ay += yForce(bodies[j] , bodies[i])
+        }
       }
+      //update accelerations
+      bodies[i][6] = ax;
+      bodies[i][7] = ay;
+
+      //update velocities
+      bodies[i][3] += ax * dt;
+      bodies[i][4] += ay * dt;
+
+      //update positions
+      bodies[i][0] += (bodies[i][3] * dt) + ((ax * dt**2) / 2);
+      bodies[i][1] += (bodies[i][4] * dt) + ((ay * dt**2) / 2);
     }
-    //update accelerations
-    bodies[i][6] = ax;
-    bodies[i][7] = ay;
+  }
+  else if (bodies.length == 1){
+    console.log("This is the only body.")
+    //update positions only, no forces will change velocity
+    bodies[0][0] += (bodies[0][3] * dt);
+    bodies[0][1] += (bodies[0][4] * dt);
 
-    //update velocities
-    bodies[i][3] += ax * dt;
-    bodies[i][4] += ay * dt;
-
-    //update positions
-    bodies[i][0] += (bodies[i][3] * dt) + ((ax * dt**2) / 2);
-    bodies[i][1] += (bodies[i][4] * dt) + ((ay * dt**2) / 2);
+  }
+  else{
+    //do nothing lol
   }
 }
 
@@ -435,6 +454,8 @@ function movePlanets(){
     //console.log(bodies[1][0], bodies[1][1]);
 
     populateCnvs();
+
+    console.log(bodies[0]);
 
   }
 }

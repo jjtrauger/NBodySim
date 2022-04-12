@@ -65,33 +65,41 @@
 
           <!-- Modal content -->
           <div class="modal-content">
-            <span class="close">&times;</span>
 
-            <label for="xPos">X Position (m): </label>
-            <input type="number" id="xPos" name="xPos"><br><br>
+            <div class="modal-header">
+              <span class="close">&times;</span>
+              <h2>Specify Celestial body Parameters. For scientific notation, use the "e" format (ex: 4e32).</h2>
+            </div>
 
-            <label for="yPos">Y Position (m): </label>
-            <input type="number" id="yPos" name="yPos"><br><br>
+              <div class="modal-body">
+              <!-- <span class="close">&times;</span> -->
 
-            <label for="bodyType">Celestial Body: </label>
-            <select name="bodyType" id="bodyType">
-              <option value="moon" name = "moon" id = "1">Moon</option>
-              <option value="planet" name = "planet" id = "2">Planet</option>
-              <option value="star" name = "star" id = "3">Star</option>
-              <option value="blackhole" name = "blackhole" id = "4">Black Hole</option>
-            </select>
-            <br><br>
+              <label for="xPos">X Position (m): </label>
+              <input type="number" id="xPos" name="xPos"><br><br>
 
-            <label for="mass">Mass (kg): </label>
-            <input type="number" id="mass" name="mass"><br><br>
+              <label for="yPos">Y Position (m): </label>
+              <input type="number" id="yPos" name="yPos"><br><br>
 
-            <label for="xVel">X Velocity (m/s): </label>
-            <input type="number" id="xVel" name="xVel"><br><br>
+              <label for="bodyType">Celestial Body: </label>
+              <select name="bodyType" id="bodyType">
+                <option value="moon" name = "moon" id = "1">Moon</option>
+                <option value="planet" name = "planet" id = "2">Planet</option>
+                <option value="star" name = "star" id = "3">Star</option>
+                <option value="blackhole" name = "blackhole" id = "4">Black Hole</option>
+              </select>
+              <br><br>
 
-            <label for="yVel">Y Velocity (m/s): </label>
-            <input type="number" id="yVel" name="yVel"><br><br>
+              <label for="mass">Mass (kg): </label>
+              <input type="number" id="mass" name="mass"><br><br>
 
-            <button id="subAddBody">Add Body to Simulation</button>
+              <label for="xVel">X Velocity (m/s): </label>
+              <input type="number" id="xVel" name="xVel"><br><br>
+
+              <label for="yVel">Y Velocity (m/s): </label>
+              <input type="number" id="yVel" name="yVel"><br><br>
+
+              <button id="subAddBody">Add Body to Simulation</button>
+            </div>
           </div>
         </div>
 
