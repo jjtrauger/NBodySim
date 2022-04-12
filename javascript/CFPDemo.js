@@ -6,9 +6,9 @@
 
 //}
 
-var plutodist = 5900000000000
-var G = 6.6743e-11
-var unit = "meters"
+var plutodist = 5900000000000 //distance from center to edge of canvas. initially, it is the distance from sun to pluto in meters
+var G = 6.6743e-11 //gravitational constant
+var unit = "meters" //in case i want to allow user to change units of input, i may allow for more units later. default meters
 
 var bodies = [];
 
@@ -105,7 +105,7 @@ function setdistScale(number, unit) {
 //rescale actual size of canvas
 function changeDist(){
   plutodist = 1 * document.getElementById("Distance").value;
-  console.log( document.getElementById("Distance").value );
+  //console.log( document.getElementById("Distance").value );
 
   clearCanvas();
 
@@ -224,10 +224,10 @@ clrAllBtn.onclick = function(){
 var addbtn = document.getElementById("subAddBody");
 
 addbtn.onclick = function() {
-  bodies.push( [1 * document.getElementById("xPos").value, 1 * document.getElementById("yPos").value,  document.getElementById("bodyType").value, 1 * document.getElementById("xVel").value, 1 * document.getElementById("yVel").value, 1 * document.getElementById("mass").value, 0, 0]);
+  bodies.push( [1 * document.getElementById("xPos").value, -1 * document.getElementById("yPos").value,  document.getElementById("bodyType").value, 1 * document.getElementById("xVel").value, -1 * document.getElementById("yVel").value, 1 * document.getElementById("mass").value, 0, 0]);
 
-  console.table(bodies);
-  console.log(bodies.length - 1);
+  //console.table(bodies);
+  //console.log(bodies.length - 1);
 
   let cnvs = document.getElementById("myCanvas");
   var body = cnvs.getContext("2d");
@@ -372,7 +372,7 @@ function updateParams(){
     }
   }
   else if (bodies.length == 1){
-    console.log("This is the only body.")
+    //console.log("This is the only body.")
     //update positions only, no forces will change velocity
     bodies[0][0] += (bodies[0][3] * dt);
     bodies[0][1] += (bodies[0][4] * dt);
@@ -455,7 +455,7 @@ function movePlanets(){
 
     populateCnvs();
 
-    console.log(bodies[0]);
+    //console.log(bodies[0]);
 
   }
 }
