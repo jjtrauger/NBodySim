@@ -36,7 +36,7 @@ earth[6] = xForce(sun, earth)
 earth[7] = 0
 
 var alec = [];
-alec[0] = -1.496 * (10**(11));
+alec[0] = - 0.7 * 1.496 * (10**(11));
 alec[1] = 0;
 alec[2] = "planet";
 alec[3] = 0;
@@ -346,40 +346,45 @@ function changeTime(){
 
 function updateParams(){
 
-  if (bodies.length > 1){
+  var accuracyMod = 45000 / ((2) * (bodies.length));
+
+  for (let l = 0; l < accuracyMod; l++){
+
+    if (bodies.length > 1){
 
 
-    for (let i = 0; i < bodies.length; i++) {
-      var ax = 0;
-      var ay = 0;
-      for (let j = 0; j < bodies.length; j++){
-        if (i != j){
-          ax += xForce(bodies[j] , bodies[i])
-          ay += yForce(bodies[j] , bodies[i])
+      for (let i = 0; i < bodies.length; i++) {
+        var ax = 0;
+        var ay = 0;
+        for (let j = 0; j < bodies.length; j++){
+          if (i != j){
+            ax += xForce(bodies[j] , bodies[i])
+            ay += yForce(bodies[j] , bodies[i])
+          }
         }
+        //update accelerations
+        bodies[i][6] = ax;
+        bodies[i][7] = ay;
+
+        //update velocities
+        bodies[i][3] += ax * (dt / accuracyMod);
+        bodies[i][4] += ay * (dt / accuracyMod);
+
+        //update positions
+        bodies[i][0] += (bodies[i][3] * (dt / accuracyMod)) + ((ax * (dt / accuracyMod)**2) / 2);
+        bodies[i][1] += (bodies[i][4] * (dt / accuracyMod)) + ((ay * (dt / accuracyMod)**2) / 2);
       }
-      //update accelerations
-      bodies[i][6] = ax;
-      bodies[i][7] = ay;
-
-      //update velocities
-      bodies[i][3] += ax * dt;
-      bodies[i][4] += ay * dt;
-
-      //update positions
-      bodies[i][0] += (bodies[i][3] * dt) + ((ax * dt**2) / 2);
-      bodies[i][1] += (bodies[i][4] * dt) + ((ay * dt**2) / 2);
     }
-  }
-  else if (bodies.length == 1){
-    //console.log("This is the only body.")
-    //update positions only, no forces will change velocity
-    bodies[0][0] += (bodies[0][3] * dt);
-    bodies[0][1] += (bodies[0][4] * dt);
+    else if (bodies.length == 1){
+      //console.log("This is the only body.")
+      //update positions only, no forces will change velocity
+      bodies[0][0] += (bodies[0][3] * (dt / accuracyMod) );
+      bodies[0][1] += (bodies[0][4] * (dt / accuracyMod) );
 
-  }
-  else{
-    //do nothing lol
+    }
+    else{
+      //do nothing lol
+    }
   }
 }
 
