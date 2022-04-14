@@ -17,7 +17,7 @@
 
   </head>
     <!-- all this is just to copy Professor's format -->
-    <body onload="setTimer()">
+    <body style="background-color:#202020" onload="setTimer()">
       <div class="container">
         <div class="grid">
 
@@ -33,7 +33,7 @@
           <div class="row">
             <div class="col-md-4">
               <form>
-                <label for="time">Time Scale (in real life seconds):</label>
+                <label style="color:#FFFFFF" for="time">Time Scale (in real life seconds):</label>
                 <select name="time" id="time" onchange="changeTime()">
                   <option value="day" name = "day" id = "1">Day</option>
                   <option value="week" name = "week" id = "2">Week</option>
@@ -44,7 +44,8 @@
                 </select>
                 <br><br>
               </form onsubmit="changeDist()">
-                Distance from Center (meters): <input type="number" id="Distance" name = "Distance" value = "0">
+            </label><label style="color:#FFFFFF" for="Distance">Distance from Center (meters):</label>
+            <input type="number" id="Distance" name = "Distance" value = "0">
                 <input class="button" type="button" onclick="changeDist()" value="Set the Scaling">
               </form>
             </div>

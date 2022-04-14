@@ -1,10 +1,4 @@
-//function setTimer() {
-//  setInterval(movePlanets, 60);
-//}
-
-//function movePlanets() {
-
-//}
+//Initiates a binary system, implements physics engine, and displays effects on am adaptable canvas
 
 var plutodist = 5900000000000 //distance from center to edge of canvas. initially, it is the distance from sun to pluto in meters
 var G = 6.6743e-11 //gravitational constant
@@ -73,7 +67,7 @@ var atx = a.getContext("2d");
 atx.strokeStyle = "#00FF00";
 
 atx.beginPath();
-atx.arc(setdistScale(alec[0] , "meters"),setdistScale(alec[1] , "meters"),13,0,2*Math.PI);
+atx.arc(setdistScale(alec[0] , "meters"),setdistScale(alec[1] , "meters"),11,0,2*Math.PI);
 
 atx.lineWidth = '5';
 atx.fillStyle = "#0000FF";
@@ -118,9 +112,9 @@ function changeDist(){
 
       body.strokeStyle = "#3d3d3d";
       body.beginPath();
-      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
+      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),9,0,2*Math.PI);
 
-      body.lineWidth = '5';
+      body.lineWidth = '3';
       body.fillStyle = "#949494";
       body.fill();
 
@@ -131,9 +125,9 @@ function changeDist(){
 
       body.strokeStyle = "#00FF00";
       body.beginPath();
-      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
+      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),11,0,2*Math.PI);
 
-      body.lineWidth = '5';
+      body.lineWidth = '4';
       body.fillStyle = "#0000FF";
       body.fill();
 
@@ -156,7 +150,7 @@ function changeDist(){
       default:
       body.strokeStyle = "#FEFEBE";
       body.beginPath();
-      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
+      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),15,0,2*Math.PI);
 
       body.lineWidth = '1';
       body.fillStyle = "#000000";
@@ -237,9 +231,9 @@ addbtn.onclick = function() {
 
     body.strokeStyle = "#3d3d3d";
     body.beginPath();
-    body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),13,0,2*Math.PI);
+    body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),9,0,2*Math.PI);
 
-    body.lineWidth = '5';
+    body.lineWidth = '3';
     body.fillStyle = "#949494";
     body.fill();
 
@@ -250,9 +244,9 @@ addbtn.onclick = function() {
 
     body.strokeStyle = "#00FF00";
     body.beginPath();
-    body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),13,0,2*Math.PI);
+    body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),11,0,2*Math.PI);
 
-    body.lineWidth = '5';
+    body.lineWidth = '4';
     body.fillStyle = "#0000FF";
     body.fill();
 
@@ -275,7 +269,7 @@ addbtn.onclick = function() {
     default:
     body.strokeStyle = "#FEFEBE";
     body.beginPath();
-    body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),13,0,2*Math.PI);
+    body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),15,0,2*Math.PI);
 
     body.lineWidth = '1';
     body.fillStyle = "#000000";
@@ -323,6 +317,17 @@ function setTimer() {
   setInterval(movePlanets, 1);
 }
 
+function factorialize(num) {
+  // factorial of 0 is 1
+  if (num == 0)
+      return 1;
+
+  // facorial is multiplying by lower num
+    else {
+        return (num * factorialize(num - 1));
+    }
+}
+
 var dt = 86400 / 1000 //time step in s
 
 function changeTime(){
@@ -346,7 +351,12 @@ function changeTime(){
 
 function updateParams(){
 
-  var accuracyMod = 45000 / ((2) * (bodies.length));
+  if ( 45000 / (factorialize(bodies.length)) > 2){
+    var accuracyMod = 45000 / (factorialize(bodies.length));
+  }
+  else{
+    var accuracyMod = 2;
+  }
 
   for (let l = 0; l < accuracyMod; l++){
 
@@ -398,9 +408,9 @@ function populateCnvs(){
 
       body.strokeStyle = "#3d3d3d";
       body.beginPath();
-      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
+      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),9,0,2*Math.PI);
 
-      body.lineWidth = '5';
+      body.lineWidth = '3';
       body.fillStyle = "#949494";
       body.fill();
 
@@ -411,9 +421,9 @@ function populateCnvs(){
 
       body.strokeStyle = "#00FF00";
       body.beginPath();
-      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
+      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),11,0,2*Math.PI);
 
-      body.lineWidth = '5';
+      body.lineWidth = '4';
       body.fillStyle = "#0000FF";
       body.fill();
 
@@ -436,7 +446,7 @@ function populateCnvs(){
       default:
       body.strokeStyle = "#FEFEBE";
       body.beginPath();
-      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),13,0,2*Math.PI);
+      body.arc(setdistScale(bodies[k][0] , "meters"),setdistScale(bodies[k][1] , "meters"),15,0,2*Math.PI);
 
       body.lineWidth = '1';
       body.fillStyle = "#000000";
@@ -451,16 +461,20 @@ function movePlanets(){
 
   if (play) {
 
-    updateParams();
+    if (bodies.length > 0){
 
-    // clear canvas
-    clearCanvas();
+      updateParams();
 
-    //console.log(bodies[1][0], bodies[1][1]);
+      // clear canvas
+      clearCanvas();
 
-    populateCnvs();
+      //console.log(bodies[1][0], bodies[1][1]);
 
-    //console.log(bodies[0]);
+      populateCnvs();
+
+      //console.log(bodies[0]);
+
+    }
 
   }
 }
