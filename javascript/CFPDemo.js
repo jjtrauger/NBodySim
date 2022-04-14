@@ -218,64 +218,72 @@ clrAllBtn.onclick = function(){
 var addbtn = document.getElementById("subAddBody");
 
 addbtn.onclick = function() {
-  bodies.push( [1 * document.getElementById("xPos").value, -1 * document.getElementById("yPos").value,  document.getElementById("bodyType").value, 1 * document.getElementById("xVel").value, -1 * document.getElementById("yVel").value, 1 * document.getElementById("mass").value, 0, 0]);
 
-  //console.table(bodies);
-  //console.log(bodies.length - 1);
+  if (1 * document.getElementById("mass").value <= 0){
+    document.getElementById("giventext").innerHTML = "Please enter a valid mass. Must be greater than 0.";
+  }
 
-  let cnvs = document.getElementById("myCanvas");
-  var body = cnvs.getContext("2d");
+  else{
+    document.getElementById("giventext").innerHTML = " ";
+    bodies.push( [1 * document.getElementById("xPos").value, -1 * document.getElementById("yPos").value,  document.getElementById("bodyType").value, 1 * document.getElementById("xVel").value, -1 * document.getElementById("yVel").value, 1 * document.getElementById("mass").value, 0, 0]);
 
-  switch(bodies[bodies.length - 1][2]){
-    case "moon":
+    //console.table(bodies);
+    //console.log(bodies.length - 1);
 
-    body.strokeStyle = "#3d3d3d";
-    body.beginPath();
-    body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),9,0,2*Math.PI);
+    let cnvs = document.getElementById("myCanvas");
+    var body = cnvs.getContext("2d");
 
-    body.lineWidth = '3';
-    body.fillStyle = "#949494";
-    body.fill();
+    switch(bodies[bodies.length - 1][2]){
+      case "moon":
 
-    body.stroke();
+      body.strokeStyle = "#3d3d3d";
+      body.beginPath();
+      body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),9,0,2*Math.PI);
 
-    break;
-    case "planet":
+      body.lineWidth = '3';
+      body.fillStyle = "#949494";
+      body.fill();
 
-    body.strokeStyle = "#00FF00";
-    body.beginPath();
-    body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),11,0,2*Math.PI);
+      body.stroke();
 
-    body.lineWidth = '4';
-    body.fillStyle = "#0000FF";
-    body.fill();
+      break;
+      case "planet":
 
-    body.stroke();
+      body.strokeStyle = "#00FF00";
+      body.beginPath();
+      body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),11,0,2*Math.PI);
 
-    break;
-    case "star":
+      body.lineWidth = '4';
+      body.fillStyle = "#0000FF";
+      body.fill();
 
-    body.strokeStyle = "#FFA500";
-    body.beginPath();
-    body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),13,0,2*Math.PI);
+      body.stroke();
 
-    body.lineWidth = '5';
-    body.fillStyle = "#FFFF00";
-    body.fill();
+      break;
+      case "star":
 
-    body.stroke();
+      body.strokeStyle = "#FFA500";
+      body.beginPath();
+      body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),13,0,2*Math.PI);
 
-    break;
-    default:
-    body.strokeStyle = "#FEFEBE";
-    body.beginPath();
-    body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),15,0,2*Math.PI);
+      body.lineWidth = '5';
+      body.fillStyle = "#FFFF00";
+      body.fill();
 
-    body.lineWidth = '1';
-    body.fillStyle = "#000000";
-    body.fill();
+      body.stroke();
 
-    body.stroke();
+      break;
+      default:
+      body.strokeStyle = "#FEFEBE";
+      body.beginPath();
+      body.arc(setdistScale(bodies[bodies.length - 1][0] , "meters"),setdistScale(bodies[bodies.length - 1][1] , "meters"),15,0,2*Math.PI);
+
+      body.lineWidth = '1';
+      body.fillStyle = "#000000";
+      body.fill();
+
+      body.stroke();
+    }
   }
 }
 
@@ -351,12 +359,25 @@ function changeTime(){
 
 function updateParams(){
 
+  if ((bodies.length) > 1){
+    if ( 45000 / ((bodies.length) * (bodies.length - 1)) > 2){
+      var accuracyMod = 45000 / ((bodies.length) * (bodies.length - 1));
+    }
+    else{
+      var accuracyMod = 100;
+    }
+  }
+  else{
+    var accuracyMod = 45000;
+  }
+
+/*
   if ( 45000 / (factorialize(bodies.length)) > 2){
     var accuracyMod = 45000 / (factorialize(bodies.length));
   }
   else{
     var accuracyMod = 2;
-  }
+  } */
 
   for (let l = 0; l < accuracyMod; l++){
 
